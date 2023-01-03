@@ -35,10 +35,10 @@ services:
     labels:
        - traefik.enable=true
        - traefik.docker.network=proxy
-       - traefik.http.routers.portainer-secure.entrypoints=websecure
-       - traefik.http.routers.portainer-secure.rule=Host(`office.andrewhacker.com.au`)
-       - traefik.http.routers.portainer-secure.service=portainer
-       - traefik.http.services.portainer.loadbalancer.server.port=8080
+       - traefik.http.routers.nextcloud-aio-mastercontainer-secure.entrypoints=websecure
+       - traefik.http.routers.nextcloud-aio-mastercontainer.rule=Host(`office.andrewhacker.com.au`)
+       - traefik.http.routers.nextcloud-aio-mastercontainer-secure.service=nextcloud-aio-mastercontainer
+       - traefik.http.services.nextcloud-aio-mastercontainer.loadbalancer.server.port=8000
        
       
   # # Optional: Caddy reverse proxy. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
