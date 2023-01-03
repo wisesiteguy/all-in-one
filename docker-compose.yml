@@ -32,7 +32,15 @@ services:
       # - NEXTCLOUD_ADDITIONAL_APKS=imagemagick # This allows to add additional packages to the Nextcloud container permanently. Default is imagemagick but can be overwritten by modifying this value. See https://github.com/nextcloud/all-in-one#how-to-add-packets-permanently-to-the-nextcloud-container
       # - NEXTCLOUD_ADDITIONAL_PHP_EXTENSIONS=imagick # This allows to add additional php extensions to the Nextcloud container permanently. Default is imagick but can be overwritten by modifying this value. See https://github.com/nextcloud/all-in-one#how-to-add-php-extensions-permanently-to-the-nextcloud-container
        - TALK_PORT=3478 # This allows to adjust the port that the talk container is using.
-
+    labels:
+       - traefik.enable=true
+       - traefik.docker.network=proxy
+       - traefik.http.routers.portainer-secure.entrypoints=websecure
+       - traefik.http.routers.portainer-secure.rule=Host(`office.andrewhacker.com.au`)
+       - traefik.http.routers.portainer-secure.service=portainer
+       - traefik.http.services.portainer.loadbalancer.server.port=8080
+       
+      
   # # Optional: Caddy reverse proxy. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
   # # You can find further examples here: https://github.com/nextcloud/all-in-one/discussions/588
   # caddy:
