@@ -14,9 +14,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro # May be changed on macOS, Windows or docker rootless. See the applicable documentation. If adjusting, don't forget to also set 'DOCKER_SOCKET_PATH'!
     ports:
       # - 80:80 # Can be removed when running behind a reverse proxy. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
-       - 8000:8000
+       - 8080:8080
       # - 8443:8443 # Can be removed when running behind a reverse proxy. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
-    network_mode: proxy
     environment: # Is needed when using any of the options below
        - APACHE_PORT=11000 # Is needed when running behind a reverse proxy. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
        - APACHE_IP_BINDING=127.0.0.1 # Should be set when running behind a reverse proxy that is running on the same host. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
@@ -33,13 +32,6 @@ services:
       # - NEXTCLOUD_ADDITIONAL_APKS=imagemagick # This allows to add additional packages to the Nextcloud container permanently. Default is imagemagick but can be overwritten by modifying this value. See https://github.com/nextcloud/all-in-one#how-to-add-packets-permanently-to-the-nextcloud-container
       # - NEXTCLOUD_ADDITIONAL_PHP_EXTENSIONS=imagick # This allows to add additional php extensions to the Nextcloud container permanently. Default is imagick but can be overwritten by modifying this value. See https://github.com/nextcloud/all-in-one#how-to-add-php-extensions-permanently-to-the-nextcloud-container
        - TALK_PORT=3478 # This allows to adjust the port that the talk container is using.
-    labels:
-       - traefik.enable=true
-       - traefik.docker.network=proxy
-       - traefik.http.routers.nextcloud-aio-mastercontainer-secure.entrypoints=websecure
-       - traefik.http.routers.nextcloud-aio-mastercontainer.rule=Host(`office.andrewhacker.com.au`)
-       - traefik.http.routers.nextcloud-aio-mastercontainer-secure.service=nextcloud-aio-mastercontainer
-       - traefik.http.services.nextcloud-aio-mastercontainer.loadbalancer.server.port=8000
        
       
   # # Optional: Caddy reverse proxy. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
